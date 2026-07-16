@@ -1,18 +1,15 @@
 import { NextResponse } from "next/server";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 
-export async function GET() {
-  const produtos = await prisma.produtos.findMany({
-    orderBy: { criado_em: "desc" },
-  });
-
-  return NextResponse.json(produtos);
-}
-
-export async function POST(request: Request) {
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
   const body = await request.json();
 
-  const produto = await prisma.produtos.create({
+  const produto = await prisma.produtos.update({
+    where: { id: Number(id) },
     data: {
       nome: body.nome,
       descricao: body.descricao,
@@ -21,7 +18,7 @@ export async function POST(request: Request) {
       cor: body.cor,
       preco: body.preco,
       imagem_url: body.imagem_url,
-      ativo: true,
+      ativo: body.ativo,
     },
   });
 
