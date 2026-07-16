@@ -20,7 +20,7 @@ export default function Produtos() {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("todas");
 
   useEffect(() => {
-    fetch("/api/produtos")
+    fetch("/api/produtos", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         setProdutos(data);
