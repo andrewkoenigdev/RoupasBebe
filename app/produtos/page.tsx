@@ -23,7 +23,8 @@ export default function Produtos() {
     fetch("/api/produtos", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
-        setProdutos(data);
+        const apenasAtivos = data.filter((p: Produto & { ativo: boolean }) => p.ativo);
+        setProdutos(apenasAtivos);
         setCarregando(false);
       });
   }, []);
@@ -48,11 +49,10 @@ export default function Produtos() {
           <button
             key={cat}
             onClick={() => setCategoriaSelecionada(cat)}
-            className={`px-4 py-2 rounded-full text-sm ${
-              categoriaSelecionada === cat
+            className={`px-4 py-2 rounded-full text-sm ${categoriaSelecionada === cat
                 ? "bg-gray-900 text-white"
                 : "bg-white text-gray-600 border border-gray-300"
-            }`}
+              }`}
           >
             {cat}
           </button>
