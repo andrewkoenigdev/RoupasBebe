@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: Request) {
   const formData = await request.formData();
@@ -13,10 +18,16 @@ export async function POST(request: Request) {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const nomeArquivo = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
-  const caminhoCompleto = path.join(process.cwd(), "public", "produtos", nomeArquivo);
+  const resultado = await new Promise<any>((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: "loja-bebe" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    uploadStream.end(buffer);
+  });
 
-  await writeFile(caminhoCompleto, buffer);
-
-  return NextResponse.json({ url: `/produtos/${nomeArquivo}` });
+  return NextResponse.json({ url: resultado.secure_url });
 }
