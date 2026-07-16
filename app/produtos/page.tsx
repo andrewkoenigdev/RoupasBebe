@@ -1,25 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 
-const produtosMock = [
-  { id: 1, nome: "Body Manga Longa Ursinho", preco: 49.9, imagemUrl: "https://via.placeholder.com/220x160", tamanho: "P", categoria: "body" },
-  { id: 2, nome: "Macacão Plush Nuvem", preco: 79.9, imagemUrl: "https://via.placeholder.com/220x160", tamanho: "RN", categoria: "macacao" },
-  { id: 3, nome: "Conjunto Listrado Verão", preco: 59.9, imagemUrl: "https://via.placeholder.com/220x160", tamanho: "M", categoria: "conjunto" },
-  { id: 4, nome: "Body Estampa Dino", preco: 44.9, imagemUrl: "https://via.placeholder.com/220x160", tamanho: "P", categoria: "body" },
-  { id: 5, nome: "Macacão Plush Estrela", preco: 84.9, imagemUrl: "https://via.placeholder.com/220x160", tamanho: "RN", categoria: "macacao" },
-];
+type Produto = {
+  id: number;
+  nome: string;
+  preco: string;
+  imagem_url: string | null;
+  tamanho: string | null;
+  categoria: string | null;
+};
 
-const categorias = ["todas", "body", "macacao", "conjunto"];
+const categorias = ["todas", "Recém-Nascido", "P", "M", "G"];
 
 export default function Produtos() {
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [carregando, setCarregando] = useState(true);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("todas");
+
+  useEffect(() => {
+    fetch("/api/produtos")
+      .then((res) => res.json())
+      .then((data) => {
+        setProdutos(data);
+        setCarregando(false);
+      });
+  }, []);
 
   const produtosFiltrados =
     categoriaSelecionada === "todas"
-      ? produtosMock
-      : produtosMock.filter((p) => p.categoria === categoriaSelecionada);
+      ? produtos
+      : produtos.filter((p) => p.categoria === categoriaSelecionada);
+
+  if (carregando) {
+    return <div className="p-6">Carregando produtos...</div>;
+  }
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -38,14 +54,23 @@ export default function Produtos() {
                 : "bg-white text-gray-600 border border-gray-300"
             }`}
           >
-            {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            {cat}
           </button>
         ))}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {produtosFiltrados.map((produto) => (
-          <ProductCard key={produto.id} product={produto} />
+          <ProductCard
+            key={produto.id}
+            product={{
+              id: produto.id,
+              nome: produto.nome,
+              preco: Number(produto.preco),
+              imagemUrl: produto.imagem_url ?? "https://via.placeholder.com/220x160",
+              tamanho: produto.tamanho ?? "",
+            }}
+          />
         ))}
       </div>
     </div>
