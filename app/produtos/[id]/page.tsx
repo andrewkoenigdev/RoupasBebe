@@ -24,7 +24,7 @@ export default async function ProdutoDetalhe({
         <img
           src={imagemUrl}
           alt={produto.nome}
-          className="w-full h-72 object-cover rounded-lg bg-gray-100"
+          className="w-full h-auto rounded-lg"
         />
         <h1 className="text-2xl font-semibold text-gray-900 mt-4">
           {produto.nome}

@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Baloo_2, Nunito } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { CartProvider } from "./context/CartContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const baloo = Baloo_2({
+  variable: "--font-baloo",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
 });
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Loja de Roupas de Bebê",
-  description: "As roupinhas mais fofas para o seu bebê",
+  title: "Meu Pequeno Amor",
+  description: "Roupinhas fofas para o seu bebê",
 };
 
 export default function RootLayout({
@@ -27,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${baloo.variable} ${nunito.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <CartProvider>

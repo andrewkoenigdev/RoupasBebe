@@ -10,69 +10,61 @@ type Produto = {
   imagem_url: string | null;
   tamanho: string | null;
   categoria: string | null;
+  ativo: boolean;
 };
-
-const categorias = ["todas", "Recém-Nascido", "P", "M", "G"];
 
 export default function Produtos() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [carregando, setCarregando] = useState(true);
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("todas");
 
   useEffect(() => {
     fetch("/api/produtos", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
-        const apenasAtivos = data.filter((p: Produto & { ativo: boolean }) => p.ativo);
-        setProdutos(apenasAtivos);
+        setProdutos(data.filter((p: Produto) => p.ativo));
         setCarregando(false);
       });
   }, []);
 
-  const produtosFiltrados =
-    categoriaSelecionada === "todas"
-      ? produtos
-      : produtos.filter((p) => p.categoria === categoriaSelecionada);
-
   if (carregando) {
-    return <div className="p-6">Carregando produtos...</div>;
+    return (
+      <div className="p-6 text-center text-[var(--color-text-muted)]">
+        Carregando produtos...
+      </div>
+    );
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-4">
-        Catálogo de Produtos
+    <div className="px-4 py-6">
+      <h1
+        className="text-xl font-extrabold text-[var(--color-primary-dark)] mb-6"
+        style={{ fontFamily: "var(--font-baloo)" }}
+      >
+        Nossa Coleção
       </h1>
 
-      <div className="flex gap-2 mb-6">
-        {categorias.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setCategoriaSelecionada(cat)}
-            className={`px-4 py-2 rounded-full text-sm ${categoriaSelecionada === cat
-                ? "bg-gray-900 text-white"
-                : "bg-white text-gray-600 border border-gray-300"
-              }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {produtosFiltrados.map((produto) => (
-          <ProductCard
-            key={produto.id}
-            product={{
-              id: produto.id,
-              nome: produto.nome,
-              preco: Number(produto.preco),
-              imagemUrl: produto.imagem_url ?? "https://via.placeholder.com/220x160",
-              tamanho: produto.tamanho ?? "",
-            }}
-          />
-        ))}
-      </div>
+      {produtos.length === 0 ? (
+        <p className="text-center text-[var(--color-text-muted)] mt-10">
+          Nenhum produto cadastrado.
+        </p>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {produtos.map((produto) => (
+            <ProductCard
+              key={produto.id}
+              product={{
+                id: produto.id,
+                nome: produto.nome,
+                preco: Number(produto.preco),
+                imagemUrl:
+                  produto.imagem_url ??
+                  "https://via.placeholder.com/400x533",
+                tamanho: produto.tamanho ?? "",
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
