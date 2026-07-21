@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍼 Kandres Baby
 
-## Getting Started
+Loja virtual de roupas de bebê feitas sob encomenda, com catálogo dinâmico, carrinho de compras e finalização de pedido via WhatsApp. Projeto full-stack desenvolvido como portfólio, com painel administrativo completo para gestão de produtos.
 
-First, run the development server:
+🔗 **[Acesse o site](https://kandres-baby.vercel.app)**
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?logo=prisma)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-336791?logo=postgresql)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38B2AC?logo=tailwind-css)
+
+---
+
+## 📋 Sobre o Projeto
+
+A **Kandres Baby** é uma loja de roupas de bebê sob encomenda. O projeto foi desenvolvido do zero — modelagem de banco de dados, back-end, front-end e deploy — como forma de aplicar na prática conceitos de desenvolvimento full-stack com um caso de uso real.
+
+Por ser uma loja sob encomenda (sem controle de estoque tradicional), o fluxo de compra foi pensado para ser simples: o cliente monta o carrinho e finaliza o pedido diretamente via WhatsApp, sem necessidade de conta de usuário ou processamento de pagamento online.
+
+## ✨ Funcionalidades
+
+- **Catálogo de produtos** com filtro por categoria
+- **Página de detalhe** de cada produto
+- **Carrinho de compras** persistente durante a sessão
+- **Checkout simplificado** — finalização de pedido via WhatsApp com mensagem pré-formatada
+- **Painel administrativo** (rota não pública) com CRUD completo de produtos
+- **Upload de imagens** direto para a nuvem (Cloudinary)
+- **Design responsivo** com identidade visual própria
+
+## 🛠️ Tecnologias
+
+**Front-end**
+- [Next.js 16](https://nextjs.org/) (App Router)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+
+**Back-end**
+- Next.js API Routes
+- [Prisma ORM 7](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/) (hospedado no [Neon](https://neon.com/))
+
+**Infraestrutura**
+- [Vercel](https://vercel.com/) — deploy e hospedagem
+- [Cloudinary](https://cloudinary.com/) — armazenamento e otimização de imagens
+
+## 🗂️ Estrutura do Projeto
+
+app/
+├── admin/ # Painel administrativo (CRUD de produtos)
+├── api/ # Rotas de API (produtos, upload)
+├── carrinho/ # Página do carrinho
+├── components/ # Componentes reutilizáveis (Header, Footer, ProductCard...)
+├── context/ # Context API (estado global do carrinho)
+├── lib/ # Configuração do Prisma Client
+├── produtos/ # Catálogo e detalhe de produto
+└── page.tsx # Home
+prisma/
+└── schema.prisma # Modelagem do banco de dados
+
+
+## 🚀 Rodando localmente
+
+**Pré-requisitos:** Node.js 18+, PostgreSQL, conta no Cloudinary
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone o repositório
+git clone https://github.com/andrewkoenigdev/RoupasBebe.git
+cd RoupasBebe
+
+# Instale as dependências
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
+CLOUDINARY_CLOUD_NAME="seu_cloud_name"
+CLOUDINARY_API_KEY="sua_api_key"
+CLOUDINARY_API_SECRET="seu_api_secret"
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+```bash
+# Gera o Prisma Client e sincroniza o schema
+npx prisma generate
+npx prisma db pull
 
-To learn more about Next.js, take a look at the following resources:
+# Roda o projeto
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Acesse `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔒 Painel Administrativo
 
-## Deploy on Vercel
+O painel admin (`/admin`) não possui link público no site — é uma decisão de projeto para manter o escopo simples, sem sistema de autenticação completo. O acesso é feito diretamente pela URL, mantida privada.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📌 Decisões de Projeto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Sem sistema de login:** o site não requer conta de cliente. O foco está na navegação simples e conversão direta via WhatsApp.
+- **Sem gateway de pagamento:** por ser uma loja sob encomenda, o fechamento do pedido acontece via conversa direta com a vendedora.
+- **Sem controle de estoque tradicional:** os produtos são feitos por encomenda, então o campo relevante é a disponibilidade (ativo/inativo), não quantidade em estoque.
+
+## 🗺️ Roadmap
+
+- [ ] Filtro por tamanho no catálogo
+- [ ] Testes de responsividade em mais dispositivos
+- [ ] Analytics de visitantes
+
+## 👤 Autor
+
+Desenvolvido por **Andrew Koenig**
+
+- GitHub: [@andrewkoenigdev](https://github.com/andrewkoenigdev)
