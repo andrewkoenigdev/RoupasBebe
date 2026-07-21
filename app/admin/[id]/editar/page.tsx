@@ -85,18 +85,18 @@ export default function EditarProduto() {
   }
 
   if (carregando) {
-    return <div className="p-6">Carregando...</div>;
+    return <div className="p-4 sm:p-6">Carregando...</div>;
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">
+    <div className="p-4 sm:p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">
         Editar Produto
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg bg-white rounded-xl shadow-sm p-6 flex flex-col gap-4"
+        className="w-full sm:max-w-lg bg-white rounded-xl shadow-sm p-4 sm:p-6 flex flex-col gap-4"
       >
         <div>
           <label className="text-sm text-gray-600">Nome</label>
@@ -105,7 +105,7 @@ export default function EditarProduto() {
             value={form.nome}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+            className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-base"
           />
         </div>
 
@@ -115,18 +115,18 @@ export default function EditarProduto() {
             name="descricao"
             value={form.descricao}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+            className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-base"
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm text-gray-600">Categoria</label>
             <input
               name="categoria"
               value={form.categoria}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+              className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-base"
             />
           </div>
           <div>
@@ -135,19 +135,19 @@ export default function EditarProduto() {
               name="tamanho"
               value={form.tamanho}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+              className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-base"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-sm text-gray-600">Cor</label>
             <input
               name="cor"
               value={form.cor}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+              className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-base"
             />
           </div>
           <div>
@@ -159,7 +159,7 @@ export default function EditarProduto() {
               value={form.preco}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+              className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-base"
             />
           </div>
         </div>
@@ -170,7 +170,7 @@ export default function EditarProduto() {
             type="file"
             accept="image/*"
             onChange={handleImageUpload}
-            className="w-full border border-gray-300 rounded-lg p-2 mt-1"
+            className="w-full border border-gray-300 rounded-lg p-2 mt-1 text-sm"
           />
           {enviandoImagem && (
             <p className="text-sm text-gray-500 mt-1">Enviando imagem...</p>
