@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Baloo_2, Nunito } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -35,8 +36,33 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <CartProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+
+          <main className="flex-1">
+            {children}
+          </main>
+
           <Footer />
+
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 2500,
+              style: {
+                background: "#111827",
+                color: "#fff",
+                borderRadius: "12px",
+                padding: "16px",
+                fontSize: "14px",
+              },
+              success: {
+                iconTheme: {
+                  primary: "#22c55e",
+                  secondary: "#fff",
+                },
+              },
+            }}
+          />
         </CartProvider>
       </body>
     </html>

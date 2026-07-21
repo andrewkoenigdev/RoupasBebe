@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCart } from "../context/CartContext";
 
 export default function Carrinho() {
-  const { items, removeItem } = useCart();
+  const { items, removeItem, increaseQuantity, decreaseQuantity } = useCart();
 
   const total = items.reduce((soma, item) => soma + item.preco * item.quantidade, 0);
 
@@ -47,7 +47,25 @@ export default function Carrinho() {
             <div className="flex-1">
               <h3 className="font-medium text-gray-900">{item.nome}</h3>
               <p className="text-sm text-gray-500">Tamanho: {item.tamanho}</p>
-              <p className="text-sm text-gray-500">Quantidade: {item.quantidade}</p>
+
+              <div className="flex items-center gap-3 mt-2">
+                <button
+                  onClick={() => decreaseQuantity(item.id)}
+                  className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
+                >
+                  −
+                </button>
+                <span className="text-sm font-medium w-4 text-center">
+                  {item.quantidade}
+                </span>
+                <button
+                  onClick={() => increaseQuantity(item.id)}
+                  className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100"
+                >
+                  +
+                </button>
+              </div>
+
               <p className="font-bold text-gray-900 mt-1">
                 R$ {(item.preco * item.quantidade).toFixed(2)}
               </p>
