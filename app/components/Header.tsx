@@ -9,12 +9,16 @@ export default function Header() {
   return (
     <header className="bg-[var(--background)] sticky top-0 z-10 px-5 py-4 flex items-center justify-between border-b border-[#EADFD3]">
       <Link href="/" className="flex items-center gap-2">
-        <span className="text-2xl">🐾</span>
+        <img
+          src="https://plus.unsplash.com/premium_vector-1731581043877-dd4d30b879ae?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Meu Pequeno Amor"
+          className="w-8 h-8 rounded-full object-cover"
+        />
         <span
           className="font-bold text-[var(--color-primary-dark)] leading-tight text-base"
           style={{ fontFamily: "var(--font-baloo)" }}
         >
-          Meu Pequeno Amor
+          Kandres Baby
         </span>
       </Link>
 
