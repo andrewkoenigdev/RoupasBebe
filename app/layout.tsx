@@ -18,8 +18,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Meu Pequeno Amor",
-  description: "Roupinhas fofas para o seu bebê",
+  title: "Kandres Baby",
+  description: "Roupinhas feitas com carinho para o seu bebê",
 };
 
 export default function RootLayout({
