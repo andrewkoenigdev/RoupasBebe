@@ -102,12 +102,6 @@ O painel admin (`/admin`) não possui link público no site — é uma decisão 
 - **Sem gateway de pagamento:** por ser uma loja sob encomenda, o fechamento do pedido acontece via conversa direta com a vendedora.
 - **Sem controle de estoque tradicional:** os produtos são feitos por encomenda, então o campo relevante é a disponibilidade (ativo/inativo), não quantidade em estoque.
 
-## 🗺️ Roadmap
-
-- [ ] Filtro por tamanho no catálogo
-- [ ] Testes de responsividade em mais dispositivos
-- [ ] Analytics de visitantes
-
 ## 👤 Autor
 
 Desenvolvido por **Andrew Koenig**
