@@ -21,6 +21,9 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: "Kandres Baby",
   description: "Roupinhas feitas com carinho para o seu bebê",
+  verification: {
+    google: "0vhs6UYNxgpXkbzxeJlsJ-VQzTgzFDjGWVIvPjvlc8k",
+  },
 };
 
 export default function RootLayout({
